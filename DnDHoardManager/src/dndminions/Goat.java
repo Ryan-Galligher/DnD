@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dndhoardmanager;
+package dndminions;
 
 /**
  *
  * @author Ryan
  */
-public class Ghoul extends Minions{
+public class Goat extends Minions{
     
 }

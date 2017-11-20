@@ -31,13 +31,14 @@ public class GUI extends javax.swing.JFrame {
         
     int wizlv;
     int proficiency; 
-    boolean dynamicallyFindClass = false;
+    private final boolean dynamicallyFindClass;
     
     
     /**
      * Creates new form GUI
      */
     public GUI() {
+        this.dynamicallyFindClass = false;
         initComponents();
     }
 
@@ -480,7 +481,7 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         updateLvAndProficiency();
         try{
-            importData(importedFile);
+            importDataCSV(importedFile);
         }catch(Exception e){JOptionPane.showMessageDialog(this, e);e.printStackTrace();}
     }//GEN-LAST:event_UpdateButtonActionPerformed
 
@@ -491,7 +492,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void ExportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportButtonActionPerformed
         // TODO add your handling code here:
-        exportData();
+        exportDataCSV();
     }//GEN-LAST:event_ExportButtonActionPerformed
 
     private void ImportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportButtonActionPerformed
@@ -505,7 +506,7 @@ public class GUI extends javax.swing.JFrame {
         {
             try
             {
-                importData(jfc.getSelectedFile());
+                importDataCSV(jfc.getSelectedFile());
                 importedFile=jfc.getSelectedFile();
                 
                 System.out.println("Finished Importing Data and Saving");
@@ -587,7 +588,9 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 
-
+    /**
+     * For each minion, simulates that minion attacking and saves the results by updating the attack table
+     */
     public void rollAttack()
     {
         //Clears out all of the previous values in the AttackList and then refills out all of them
@@ -616,8 +619,11 @@ public class GUI extends javax.swing.JFrame {
     {
         //Have damage delt to creature, and if dead removes it from list##########################################################################################
     }
-    
-    public void importData(File theFile)
+    /**
+     * Reads the different rows from a CSV spreadsheet and calls other methods to import the Minion
+     * @param theFile 
+     */
+    public void importDataCSV(File theFile)
     {
         System.out.println("    Into ImportData method");
         Scanner hello;
@@ -633,35 +639,27 @@ public class GUI extends javax.swing.JFrame {
             return;
         }
         
-        String me;
-        String putIn[];
+        String[] me;
         int spot = 0;
         //for every line in the file, collect data and place it where it is needed
         while (hello.hasNextLine())
         {
-            spot++;
-            me = hello.nextLine();
-            System.out.println("        At the place in the spreadsheet " + spot + " has the name " + me);
-            //read in each value on the line and create a row
-            
-            //NOW NEEDS TO BE ABLE TO FIND THAT 2ND PART OF SPREADSHEET, THE NAME, REFERENCES A CLASS AND THEN USE THAT TO GRAB ITS HP AND AC AND DEFAULT 0 FOR ATTACKING###########ClassNotFoundException
             try{
-                Minions mini = findMinion(me);
-                System.out.println("        Did the general reference thing so as to extract the class name from string");
-                mini.setUp(wizlv, proficiency, 0);
-                System.out.println("        Set up the object to be completely set up");
-                list.add(mini);
-                putIn = new String[]{mini.getName(),"" + mini.getHp(), "" + mini.getAc(), "1" };
-                System.out.println("        put the info into an array");
-                updateMinionTableRow(putIn);
+                spot++;
+                me = hello.nextLine().split(",");
+                System.out.println("        At the place in the spreadsheet " + spot + " has the name " + me);
+                //read in each value on the line and create a row
+                parseImportedData(me);
             }catch(ClassNotFoundException|InstantiationException|IllegalAccessException e){JOptionPane.showMessageDialog(this, e);e.printStackTrace(); break;}
         }
         System.out.println("    Finished reading all lines in the File");
         
         try{System.out.println(hello.nextLine());}catch(Exception e){System.out.println("There is indeed no other after right now.");}
     }
-    
-    public void exportData()
+    /**
+     * Exports the Minion information into a CSV spreadsheet. NOT COMPLETE.
+     */
+    public void exportDataCSV()
     {
         //Have data in program override the spreadsheet. DOES NOT save the health of creatures
         JFileChooser jfc = new JFileChooser();
@@ -680,7 +678,10 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }
-    
+    /**
+     * Adds in the information about a Minion given through stuff into the Minion Table.
+     * @param stuff 
+     */
     public void updateMinionTableRow(String[] stuff)
     {
         System.out.println("            updating the Minon Table");
@@ -713,6 +714,7 @@ public class GUI extends javax.swing.JFrame {
     /**
      * This Method goes and adds the values in stuff and puts it into the Attack Table, putting it in the next open one or creates another row and adds the values to that row
      * @param stuff 
+     * @param isCritical 
      */
     public void updateAttackTableRow(String[] stuff, boolean isCritical)
     {
@@ -739,7 +741,10 @@ public class GUI extends javax.swing.JFrame {
             model.addRow(new Object[]{i,stuff[0],stuff[1],stuff[2]});
         }
     }
-    
+    /**
+     * Clears resets all of the values to empty Strings in the given Table
+     * @param Table_jTable 
+     */
     public void cleanTable(JTable Table_jTable)
     {
         int rows = Table_jTable.getModel().getRowCount();   //clears the table so there are no leftover broken stuff
@@ -752,10 +757,17 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }
- 
+    /**
+     * Takes the name of a Class of Minion and returns a new instance of it.
+     * @param className The String of the name of the Minion
+     * @return A new instance of the requested Minion
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException 
+     */
     public Minions findMinion( String className ) throws ClassNotFoundException,InstantiationException,IllegalAccessException
     {
-        if(dynamicallyFindClass)
+        if(dynamicallyFindClass)    //Views the boolean to decide if it should try and Dynamically find a class or not
         {
             Class clazz = Class.forName(className);
             Minions mini = (Minions) clazz.newInstance();
@@ -774,6 +786,9 @@ public class GUI extends javax.swing.JFrame {
             throw new ClassNotFoundException();
         }
     }
+    /**
+     * Clears out all of the tables and ArrayLists
+     */
     public void clearAll()
     {
         cleanTable(MonsterList);
@@ -783,9 +798,32 @@ public class GUI extends javax.swing.JFrame {
         attackNotes.clear();
         numRepeatingAttackNotes.clear();
     }
+    /**
+     * Updates the variables for the current Sliders wizard Level and Proficiency bonus
+     */
     public void updateLvAndProficiency()
     {
         wizlv=WizlvSlider.getValue();
         proficiency=ProficiencySlider.getValue();
+    }
+    /**
+     * This method takes a row from a spreadsheet (which should equate to a Minion) and load it into the program
+     * @param line A row of the spreadsheet
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException 
+     */
+    public void parseImportedData(String[] line) throws ClassNotFoundException, InstantiationException, IllegalAccessException
+    {
+        String putIn[];
+        //NOW NEEDS TO BE ABLE TO FIND THAT 2ND PART OF SPREADSHEET, THE NAME, REFERENCES A CLASS AND THEN USE THAT TO GRAB ITS HP AND AC AND DEFAULT 0 FOR ATTACKING###########ClassNotFoundException
+        Minions mini = findMinion(line[1]);
+        System.out.println("        Did the general reference thing so as to extract the class name from string");
+        mini.setUp(wizlv, proficiency, 0);
+        System.out.println("        Set up the object to be completely set up");
+        list.add(mini);
+        putIn = new String[]{mini.getName(),"" + mini.getHp(), "" + mini.getAc(), "1" };
+        System.out.println("        put the info into an array");
+        updateMinionTableRow(putIn);
     }
 }

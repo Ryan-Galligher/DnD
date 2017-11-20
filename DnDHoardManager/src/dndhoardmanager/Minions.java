@@ -13,10 +13,10 @@ import javax.swing.JOptionPane;
  * @author Ryan
  */
 public abstract class Minions {
-    protected int hp;
-    protected int ac;
-    protected Attacks[] combinations;
-    protected String name;
+    private int hp;
+    private int ac;
+    private Attacks[] combinations;
+    private String name;
     
     public int getHp(){return hp;}
     public int getAc(){return ac;}

@@ -15,6 +15,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import dndminions.*;
+
 
 
 /**
@@ -769,7 +771,7 @@ public class GUI extends javax.swing.JFrame {
     {
         if(dynamicallyFindClass)    //Views the boolean to decide if it should try and Dynamically find a class or not
         {
-            Class clazz = Class.forName(className);
+            Class clazz = Class.forName("dndminions." + className);
             Minions mini = (Minions) clazz.newInstance();
             return mini;
         }

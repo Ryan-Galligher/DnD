@@ -18,6 +18,11 @@ public abstract class Minions {
     protected Attacks[] combinations;
     protected String name;
     
+    public static final int ATTACKROLLPLACE=0;
+    public static final int DAMAGEPLACE=1;
+    public static final int DESCRIPTIONPLACE=2;
+    public static final int ISCRITICALPLACE=3;
+    
     public int getHp(){return hp;}
     public int getAc(){return ac;}
     public String getName(){return name;}
@@ -58,9 +63,9 @@ public abstract class Minions {
         }
         
         //combinations[attackChoice] gives back an Attack from the Attacks[], and so the getLength() of an Attack gives the # of individual hits that that creature can do
-        String[][] attacksMade = new String[combinations[attackChoice].getLength() ][4];       //4 Places, attack to hit, damage, and description, and isCritical
-        int onHitRoll=0;
-        int damageRoll=0;
+        String[][] attacksMade = new String[combinations[attackChoice].getLength() ][4];       //4 Places: attack to hit, damage, and description, and isCritical
+        int onHitRoll;
+        int damageRoll;
         boolean isCritical = false;
         for (int i = 0; i < combinations[attackChoice].getLength(); i++)    //for each attack in the chosen attack path
         {

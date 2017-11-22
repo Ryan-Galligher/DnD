@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package dndminions;
-
-import dndhoardmanager.Attacks;
-import dndhoardmanager.Dice;
+import dndhoardmanager.*;
 
 /**
  *

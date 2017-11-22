@@ -4,11 +4,8 @@
  * and open the template in the editor.
  */
 package dndminions;
-
+import dndhoardmanager.*;
 import java.util.Random;
-
-import dndhoardmanager.Attacks;
-import dndhoardmanager.Dice;
 
 /**
  *
@@ -28,6 +25,7 @@ public class Zombi extends Minions {
     {
         this.setUp( wizlv,  proficiency,  acBoost);
     }
+
     
      @Override
     public void setUp(int wizlv, int proficiency, int acBoost)

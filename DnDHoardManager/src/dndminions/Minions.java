@@ -4,11 +4,9 @@
  * and open the template in the editor.
  */
 package dndminions;
-
+import dndhoardmanager.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import dndhoardmanager.Attacks;
 
 /**
  *
@@ -36,7 +34,7 @@ public abstract class Minions {
         //THEN CALCULATE ATTACK ROLL AND DAMAGE AND ADD IT TO DOUBLE MATRIX
         if(combinations.length > attackChoice+1)
         {
-            while(combinations.length > attackChoice)
+            while(combinations.length > attackChoice+1)
             {
                 if ( JOptionPane.showConfirmDialog(new JFrame(), 
                     "There are " + combinations.length + " attacks that " + name + " can do. Do you want to do the combo: [ " + combinations[attackChoice].getAllDescriptions() + " ] ?", 
@@ -68,11 +66,11 @@ public abstract class Minions {
         {
             onHitRoll=combinations[attackChoice].getOneHitNumber(i, advantage);
             if(onHitRoll==20+combinations[attackChoice].getHitModifier(i)){
-                damageRoll=combinations[attackChoice].getOneDamageNumber(i, advantage);
+                damageRoll=combinations[attackChoice].getOneDamageNumber(i)+combinations[attackChoice].getOneDamageNumberNoModifier(i);
                 isCritical=true;
             }
             else
-                damageRoll=combinations[attackChoice].getOneDamageNumber(i, advantage)+combinations[attackChoice].getOneDamageNumberNoModifier(i, advantage);
+                damageRoll=combinations[attackChoice].getOneDamageNumber(i);
             attacksMade[i]=new String[]{"" +onHitRoll, "" + damageRoll, combinations[attackChoice].getDescription(i), "" + isCritical };
         }
         return attacksMade;

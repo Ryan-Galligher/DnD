@@ -29,9 +29,8 @@ public class Attacks     //This holds not only multiple attacks, but also a sing
     public String getAllDescriptions()
     {
         String total = "";
-        for (int i = 0; i < descriptions.length; i ++)
-        {
-            total+=descriptions[i]+",";
+        for (String description : descriptions) {
+            total += description + ",";
         }
         return total;
     }
@@ -48,19 +47,15 @@ public class Attacks     //This holds not only multiple attacks, but also a sing
         
         return ((size>roll) ? size : roll);
     }
-    public int getOneDamageNumber(int spot, boolean advantage)
+    public int getOneDamageNumber(int spot)
     {
         int size=0;
         int roll=0;
-        if(advantage)
-        {
-            size=toHitCombo[spot].roll();
-        }
         roll=toHurtCombo[spot].roll();
         
         return ((size>roll) ? size : roll);
     }
-    public int getOneDamageNumberNoModifier(int spot, boolean advantage){return getOneDamageNumber(spot,advantage)-toHurtCombo[spot].getModifier(); }
+    public int getOneDamageNumberNoModifier(int spot){return getOneDamageNumber(spot)-toHurtCombo[spot].getModifier(); }
     
     
 }

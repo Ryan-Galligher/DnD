@@ -752,7 +752,7 @@ public class GUI extends javax.swing.JFrame {
             attacksFromOneCreature = list.get(i).attack();
             for (String[] attacksFromOneCreature1 : attacksFromOneCreature) //For every attack each creature made
             {
-                String attackRoll="";
+                String attackRoll;
                 if(attacksFromOneCreature1[Minions.ISCRITICALPLACE].equals("true"))
                     attackRoll="nat 20";        //If the attack resulted in a natural 20, then the attackroll inputed value is "nat 20" instead of the normal roll with its modifier to distinguish the two
                 else

@@ -35,6 +35,10 @@ public class Dice {
      */
     public int roll()
     {
+        if(diceType==0)
+            return 0;
+        if(diceType==1)
+            return 1;
         int total=0;
         Random rand = new Random();
         for (int i = 0; i < diceNum; i++)

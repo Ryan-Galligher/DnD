@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package dndminions;
-import dndhoardmanager.*;
+
 /**
  *
  * @author Ryan

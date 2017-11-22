@@ -18,6 +18,10 @@ import javax.swing.table.DefaultTableModel;
 import dndminions.*;
 
 
+import dndminions.Minions;
+import dndminions.Skele;
+import dndminions.Zombi;
+
 
 /**
  *
@@ -33,7 +37,7 @@ public class GUI extends javax.swing.JFrame {
         
     int wizlv;
     int proficiency; 
-    private final boolean dynamicallyFindClass;
+    private final boolean dynamicallyFindClass = true;
     
     
     /**
@@ -780,7 +784,7 @@ public class GUI extends javax.swing.JFrame {
             Minions[] classes = new Minions[]{new Zombi(),new Skele()};
             for (Minions classe : classes)
             {
-                if (classe.name.equals(className))
+                if (classe.getName().equals(className))
                 {
                     return classe;
                 }

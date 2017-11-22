@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 package dndminions;
-import dndhoardmanager.*;
+
 import java.util.Random;
+
+import dndhoardmanager.Attacks;
+import dndhoardmanager.Dice;
 
 /**
  *

@@ -359,11 +359,11 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel6.setText("Minion #");
 
-        MinionNumberField.setText("0");
+        MinionNumberField.setText("1");
 
         jLabel7.setText("Monster #");
 
-        MonsterNumberField.setText("0");
+        MonsterNumberField.setText("1");
 
         ExportButton.setText("Export Data");
         ExportButton.addActionListener(new java.awt.event.ActionListener() {
@@ -632,7 +632,7 @@ public class GUI extends javax.swing.JFrame {
                 System.out.println("        {" + stuff + "}");
                 int attackCameFromThisMinion = Integer.parseInt(stuff); //convert it to int
                 System.out.println("        attackCameFromThisMinion was able to successfully get the value");
-                int monsterSpot = Integer.parseInt((String)MinionList.getModel().getValueAt(attackCameFromThisMinion-1, minionListAttackingMonster))-1;    //Gets Monster That specific Attack is Attacking
+                int monsterSpot = Integer.parseInt( (String)MinionList.getModel().getValueAt(attackCameFromThisMinion-1, minionListAttackingMonster) )-1;    //Gets Monster That specific Attack is Attacking
                 System.out.println("        monsterSpot was able to successfully get the value");
                 if(MonsterList.getModel().getValueAt(monsterSpot,attackListDamageColumn).equals(""))
                     MonsterList.getModel().setValueAt(AttackList.getModel().getValueAt(i, attackListDamageColumn),monsterSpot,attackListDamageColumn);
@@ -645,9 +645,10 @@ public class GUI extends javax.swing.JFrame {
     private void SetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetButtonActionPerformed
         // TODO add your handling code here:
         try{
-            int monsterSpot = Integer.getInteger(MonsterNumberField.getText());
-            int minionSpot = Integer.getInteger(MinionNumberField.getText());
+            int monsterSpot = Integer.parseInt(MonsterNumberField.getText());
+            int minionSpot = Integer.parseInt(MinionNumberField.getText());
             MinionList.getModel().setValueAt(monsterSpot, minionSpot, minionListAttackingMonster);  //Stores the spot of the monster they are attacking, using the row of the minion and the column that stores what monster a minion is attacking
+            MinionNumberField.setText("");
         }catch(Exception e){JOptionPane.showMessageDialog(this, e);}
     }//GEN-LAST:event_SetButtonActionPerformed
 

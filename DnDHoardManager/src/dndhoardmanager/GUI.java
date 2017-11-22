@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import dndminions.*;
+import javax.swing.JFrame;
 //import java.awt.Component;
 
 
@@ -31,10 +32,11 @@ public class GUI extends javax.swing.JFrame {
     ArrayList<String> attackNotes = new ArrayList<>();
     ArrayList<Integer> numRepeatingAttackNotes = new ArrayList<>();
     File importedFile;
+    final File defaultFile = new File("MinionListUpdatedMaybe2.csv");
         
     int wizlv;
     int proficiency; 
-    private final boolean dynamicallyFindClass=false;
+    private final boolean dynamicallyFindClass=true;
     
     int attackListSpotColumn=0;
     int attackListDamageColumn=3;
@@ -312,7 +314,7 @@ public class GUI extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Number", "Name", "AC?", "Hurt By"
+                "Number", "Name", "AC?", "Hurt"
             }
         ));
         jScrollPane3.setViewportView(MonsterList);
@@ -528,6 +530,7 @@ public class GUI extends javax.swing.JFrame {
     private void UpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonActionPerformed
         // TODO add your handling code here:
         updateLvAndProficiency();
+        clearNonMonster();
         try{
             importDataCSV(importedFile);
         }catch(Exception e){JOptionPane.showMessageDialog(this, e);e.printStackTrace();}
@@ -535,6 +538,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void RollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RollButtonActionPerformed
         // TODO add your handling code here:
+        clearDamageDealtMonsters();
         rollAttack();
     }//GEN-LAST:event_RollButtonActionPerformed
 
@@ -549,20 +553,26 @@ public class GUI extends javax.swing.JFrame {
         updateLvAndProficiency();
         System.out.println("Gotten into choosing the file from the computer");
         //Have data read from excel spreadsheet and put it into program
-        JFileChooser jfc = new JFileChooser();
-        if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
-        {
-            try
+        try{
+            if(JOptionPane.showConfirmDialog(new JFrame(), 
+                    "Do you want to Use the Default Path?", 
+                    "Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
             {
-                importDataCSV(jfc.getSelectedFile());
-                importedFile=jfc.getSelectedFile();
-                
-                System.out.println("Finished Importing Data and Saving");
-            } catch(Exception ex) {
-                JOptionPane.showMessageDialog(this, ex);
-                //Logger.getLogger(FTCLeagueSeeder.class.getName()).log(Level.SEVERE, null, ex);
+                JFileChooser jfc = new JFileChooser();
+                if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
+                {
+                    importDataCSV(jfc.getSelectedFile());
+                    importedFile=jfc.getSelectedFile();
+                    System.out.println("Finished Importing Data and Saving -> " + importedFile);
+                }
             }
-        }
+            else
+            {
+                importDataCSV(defaultFile);
+                importedFile=defaultFile;
+                System.out.println("Finished Importing Data and Saving -> " + importedFile);
+            }
+        } catch(Exception ex) {JOptionPane.showMessageDialog(this, ex);}
     }//GEN-LAST:event_ImportButtonActionPerformed
 
     private void SumButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SumButtonActionPerformed
@@ -879,6 +889,15 @@ public class GUI extends javax.swing.JFrame {
     /**
      * Clears out all of the tables and ArrayLists
      */
+    private void clearNonMonster()
+    {
+        clearDamageDealtMonsters();
+        cleanTable(MinionList);
+        cleanTable(AttackList);
+        list.clear();
+        attackNotes.clear();
+        numRepeatingAttackNotes.clear();
+    }
     private void clearAll()
     {
         cleanTable(MonsterList);
@@ -919,5 +938,12 @@ public class GUI extends javax.swing.JFrame {
     private boolean attackLanded(String attackRollManualConfirmation)
     {
         return attackRollManualConfirmation.equals("Yes") || attackRollManualConfirmation.equals("Y") || attackRollManualConfirmation.equals("yes") || attackRollManualConfirmation.equals("y");
+    }
+    private void clearDamageDealtMonsters()
+    {
+        for (int i = 0; i < MonsterList.getModel().getRowCount(); i++)
+        {
+            MonsterList.getModel().setValueAt("", i, attackListDamageColumn);
+        }
     }
 }

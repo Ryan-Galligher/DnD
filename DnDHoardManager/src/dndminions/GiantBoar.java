@@ -16,7 +16,7 @@ public class GiantBoar extends Minions{
     {
         super.hp=2;
         super.ac=2;
-        super.name="Giant Boar";
+        super.name="GiantBoar";
         super.combinations=new Attacks[]{};
     }
     

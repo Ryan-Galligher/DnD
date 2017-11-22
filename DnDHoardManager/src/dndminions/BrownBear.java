@@ -15,7 +15,7 @@ public class BrownBear extends Minions{
     {
         super.hp=2;
         super.ac=2;
-        super.name="Brown Bear";
+        super.name="BrownBear";
         super.combinations=new Attacks[]{};
     }
     

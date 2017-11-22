@@ -15,7 +15,7 @@ public class GiantGoat extends Minions{
     {
         super.hp=2;
         super.ac=2;
-        super.name="Giant Goat";
+        super.name="GiantGoat";
         super.combinations=new Attacks[]{};
     }
     

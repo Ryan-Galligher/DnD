@@ -15,7 +15,7 @@ public class FireElemental extends Minions{
     {
         super.hp=2;
         super.ac=2;
-        super.name="Fire Elemental";
+        super.name="FireElemental";
         super.combinations=new Attacks[]{};
     }
     

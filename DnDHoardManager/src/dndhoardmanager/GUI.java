@@ -107,6 +107,9 @@ public class GUI extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         DamageDealtToMinionTextField = new javax.swing.JTextField();
         DamageButton = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        KillMonsterText = new javax.swing.JTextField();
+        KillMonsterButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -262,7 +265,8 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jLabel3.setText("Minion List");
@@ -289,8 +293,8 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -339,15 +343,16 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(7, 7, 7)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -508,6 +513,17 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("Kill Monster #");
+
+        KillMonsterText.setText("1");
+
+        KillMonsterButton.setText("Kill Monster");
+        KillMonsterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KillMonsterButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -522,11 +538,17 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(MinionNumberDamageField, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(DamageDealtToMinionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DamageButton))
-                    .addComponent(jLabel9))
+                        .addComponent(DamageButton)))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(KillMonsterText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(KillMonsterButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -535,12 +557,15 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MinionNumberDamageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DamageDealtToMinionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DamageButton))
+                    .addComponent(DamageButton)
+                    .addComponent(KillMonsterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(KillMonsterButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -581,10 +606,10 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3))
         );
 
         pack();
@@ -664,11 +689,12 @@ public class GUI extends javax.swing.JFrame {
 
     private void SetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetButtonActionPerformed
         // TODO add your handling code here:
+        System.out.println("Attempting to set who the minion is attacking");
         try{
-            int minionSpot = Integer.parseInt(MinionNumberField.getText());
+            int minionSpot = Integer.parseInt(MinionNumberField.getText())-1;
             if(!MinionList.getModel().getValueAt(minionSpot, minionListSpot).equals(""))
             {
-                int monsterSpot = Integer.parseInt(MonsterNumberField.getText()) -1;
+                int monsterSpot = Integer.parseInt(MonsterNumberField.getText()) ;
                 MinionList.getModel().setValueAt("" + monsterSpot, minionSpot, minionListAttackingMonster);  //Stores the spot of the monster they are attacking, using the row of the minion and the column that stores what monster a minion is attacking
                 MinionNumberField.setText("");
             }
@@ -708,6 +734,49 @@ public class GUI extends javax.swing.JFrame {
             
         }catch(Exception e){JOptionPane.showMessageDialog(this, e);e.printStackTrace();}
     }//GEN-LAST:event_DamageButtonActionPerformed
+
+    private void KillMonsterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KillMonsterButtonActionPerformed
+        // TODO add your handling code here:
+        try{
+            int monsterSpot = Integer.parseInt(KillMonsterText.getText())-1;
+            deleteRow(monsterSpot, MonsterList, true);  //Deletes the Monster and the row that it is in
+            
+            try{
+            for(int i = 0; i < MinionList.getModel().getRowCount(); i++)    //Goes through every minion, and then changes them so that they are attacking a real/the correct monster
+            {
+                int minionIsAttackingValue;
+                boolean stringOrInt;    //If it is a String, put true. If it is an int, put false.
+                
+                try{
+                    minionIsAttackingValue = Integer.parseInt((String)MinionList.getModel().getValueAt(i, minionListAttackingMonster))-1;
+                    stringOrInt=true;
+                }catch(ClassCastException e){
+                    minionIsAttackingValue = (Integer)MinionList.getModel().getValueAt(i,minionListAttackingMonster);
+                    stringOrInt=false;
+                }
+                
+                int changeToAttacking=minionIsAttackingValue;   //If the minion was attacking a monster at a spot smaller that was just killed, keep that minion fighting assigned monster
+                
+                if(minionIsAttackingValue==monsterSpot) //If the minion was attacking the monster that just died, asks who the minion should attack now
+                {
+                    changeToAttacking=Integer.parseInt( JOptionPane.showInputDialog("What is the spot of the Monster that " + list.get(i).getName() + " at spot " + ((i+1)) + " should attack now?"))-1;  //Asks the user who the minion should attack now if the monster has been changed. Subtracts 1 so that it deals with Arrays Starting at 0.
+                    if(changeToAttacking<=0)
+                    {
+                        JOptionPane.showMessageDialog(this, "ERROR: Selected Monster Does Not Exist. Assuming that Minion wants to attack Monster at spot 1");
+                        changeToAttacking=1;
+                    }
+                }
+                if(minionIsAttackingValue>monsterSpot)  //If the minion was attacking a monster with a higher spot that that that just died, then reduce the spot that the creature is attacking by 1 so it is still attacking the correct monster
+                    changeToAttacking=minionIsAttackingValue-1;
+                    
+                if(stringOrInt) //If it reads from the table as a String, input it back as a String. If it reads it as an int, input it back as an int.
+                    MinionList.getModel().setValueAt("" + (changeToAttacking+1), i, minionListAttackingMonster);
+                else
+                    MinionList.getModel().setValueAt(changeToAttacking+1, i, minionListAttackingMonster);
+            }
+            }catch(NumberFormatException e){}   //If the code goes far enough down in the AttackMinion table so that it reaches values that are simply "", then it terminates the for loop
+        }catch(Exception e){JOptionPane.showMessageDialog(this, e);e.printStackTrace();}
+    }//GEN-LAST:event_KillMonsterButtonActionPerformed
 
     
     /**
@@ -757,6 +826,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton DeleteButton;
     private javax.swing.JButton ExportButton;
     private javax.swing.JButton ImportButton;
+    private javax.swing.JButton KillMonsterButton;
+    private javax.swing.JTextField KillMonsterText;
     private javax.swing.JTable MinionList;
     private javax.swing.JTextField MinionNumberDamageField;
     private javax.swing.JTextField MinionNumberField;
@@ -769,6 +840,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton SumButton;
     private javax.swing.JSlider WizlvSlider;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -820,7 +892,12 @@ public class GUI extends javax.swing.JFrame {
             }
         }
     }
-    
+    /**
+     * Deals damage to the given minion
+     * @param damageAmount
+     * @param row
+     * @param column 
+     */
     private void dealDamage(int damageAmount, int row, int column)
     {
         System.out.println("    About to Decrease Health");
@@ -1017,6 +1094,9 @@ public class GUI extends javax.swing.JFrame {
         attackNotes.clear();
         numRepeatingAttackNotes.clear();
     }
+    /**
+     * Clears all of the tables and lists in the program
+     */
     private void clearAll()
     {
         cleanTable(MonsterList);
@@ -1073,6 +1153,9 @@ public class GUI extends javax.swing.JFrame {
             MonsterList.getModel().setValueAt("", i, attackListDamageColumn);
         }
     }
+    /**
+     * Clears all of the remains of a single attack roll, including all of AttackList and summed damage in MonsterList
+     */
     private void clearAttackRound()
     {
         clearDamageDealtMonsters();
@@ -1080,16 +1163,22 @@ public class GUI extends javax.swing.JFrame {
         attackNotes.clear();
         numRepeatingAttackNotes.clear();
     }
+    /**
+     * Deletes a row from the given table
+     * @param row The row that is to be deleted
+     * @param table The table that a row is to be deleted from
+     * @param modifySpotVariables If the function should move around the spot variables in the table. WARNING, NOT COMPATIBLE WITH ATTACKLIST YET
+     */
     private void deleteRow(int row, JTable table, boolean modifySpotVariables)
     {
         System.out.println("            Deleting Row");
         DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.removeRow(row);
+        model.removeRow(row);       //Removes a row in the table
         System.out.println("            Deleted Row");
         if(modifySpotVariables)
         {
             try{
-            for(int i = row; i < table.getModel().getRowCount(); i++)
+            for(int i = row; i < table.getModel().getRowCount(); i++)   //For every row in the table
             {
                 System.out.println("                Modifying now row " + i);
                 System.out.println("                Current read value is: " + table.getModel().getValueAt(i,spotColumn));
@@ -1097,7 +1186,7 @@ public class GUI extends javax.swing.JFrame {
                     table.getModel().setValueAt("" + (Integer.parseInt((String)table.getModel().getValueAt(i,spotColumn)) - 1), i, spotColumn);  //Takes the value at spotColumn and decreases it by 1
                 }catch(ClassCastException e){table.getModel().setValueAt((Integer)table.getModel().getValueAt(i,spotColumn) - 1, i, spotColumn);}   //If the value is stored in the table not as a String it deals with as an int
             }
-            }catch(NumberFormatException a){}
+            }catch(NumberFormatException a){}   //If the spot returns as a "", then it will throw a NumberFormatException, which will be caught by the try-catch outside of the for loop.
         }
     }
 }

@@ -6,6 +6,8 @@
 package dndminions;
 import dndhoardmanager.*;
 import java.util.Random;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,7 +54,7 @@ public class Zombi extends Minions {
         
         //Demand User to tell if died from radiant damage or Critical Hit, give return; if either are true
         
-        if(super.hp<=0)
+        if(super.hp<=0 && JOptionPane.showConfirmDialog(new JFrame(),"Was the Damage a Critical Hit or Radiant Damage?","Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
         {
             Random rand = new Random();
             super.hp=((rand.nextInt(20+1)>=(5+amount)) ? 1 : 0);

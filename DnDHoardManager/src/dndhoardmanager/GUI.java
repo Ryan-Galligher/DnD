@@ -1262,7 +1262,10 @@ public class GUI extends javax.swing.JFrame {
             //    int stuff = Integer.parseInt((String)MinionList.getModel().getValueAt(MinionList.getSelectedRow(), minionListSpot));
             //}catch(ClassCastException e){int stuff = (Integer)MinionList.getModel().getValueAt(MinionList.getSelectedRow(), minionListSpot);}
             if(MinionList.getModel().getValueAt(spot, minionListSpot).equals("") || MinionList.getModel().getValueAt(spot, minionListSpot) == null)
+            {
+                MinionDescriptionField.setText("No Minion Selected");
                 return;
+            }
             
             String setTextAs = convertMinionAttackDescription( list.get(spot).getDescriptions() );
             System.out.println(setTextAs);

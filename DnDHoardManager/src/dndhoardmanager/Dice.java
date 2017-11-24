@@ -39,6 +39,8 @@ public class Dice {
             return 0;
         if(diceType==1)
             return 1;
+        if(diceNum==0)
+            return diceType;
         int total=0;
         Random rand = new Random();
         for (int i = 0; i < diceNum; i++)

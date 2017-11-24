@@ -30,7 +30,7 @@ public class Attacks     //This holds not only multiple attacks, but also a sing
     {
         String total = "";
         for (String description : descriptions) {
-            total += description + ",";
+            total += description + ":";
         }
         return total;
     }

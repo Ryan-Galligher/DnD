@@ -33,7 +33,8 @@ public class GUI extends javax.swing.JFrame {
     ArrayList<Integer> numRepeatingAttackNotes = new ArrayList<>();
     File importedFile;
     final File defaultFile = new File("MinionListUpdatedMaybe2.csv");
-        
+    
+    int highlitedRow=0;
     int wizlv;
     int proficiency; 
     private final boolean dynamicallyFindClass=true;
@@ -74,6 +75,16 @@ public class GUI extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         ProficiencySlider = new javax.swing.JSlider();
+        jPanel6 = new javax.swing.JPanel();
+        AddButton = new javax.swing.JButton();
+        DeleteButton = new javax.swing.JButton();
+        ExportButton = new javax.swing.JButton();
+        ImportButton = new javax.swing.JButton();
+        RollButton = new javax.swing.JButton();
+        ReloadButton = new javax.swing.JButton();
+        SumButton = new javax.swing.JButton();
+        ClearAllButton = new javax.swing.JButton();
+        ClearRoundButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         MinionList = new javax.swing.JTable();
@@ -86,21 +97,6 @@ public class GUI extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         MonsterList = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        AddButton = new javax.swing.JButton();
-        DeleteButton = new javax.swing.JButton();
-        SetButton = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        MinionNumberField = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        MonsterNumberField = new javax.swing.JTextField();
-        ExportButton = new javax.swing.JButton();
-        ImportButton = new javax.swing.JButton();
-        RollButton = new javax.swing.JButton();
-        ReloadButton = new javax.swing.JButton();
-        SumButton = new javax.swing.JButton();
-        ClearAllButton = new javax.swing.JButton();
-        ClearRoundButton = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         MinionNumberDamageField = new javax.swing.JTextField();
@@ -110,6 +106,15 @@ public class GUI extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         KillMonsterText = new javax.swing.JTextField();
         KillMonsterButton = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        MinionNumberField = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        MonsterNumberField = new javax.swing.JTextField();
+        SetButton = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        MinionDescriptionField = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,14 +132,10 @@ public class GUI extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(WizlvSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(WizlvSlider, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,19 +156,115 @@ public class GUI extends javax.swing.JFrame {
         ProficiencySlider.setPaintTicks(true);
         ProficiencySlider.setSnapToTicks(true);
 
+        AddButton.setText("Add Row");
+
+        DeleteButton.setText("Delete Row");
+
+        ExportButton.setText("Export Data");
+        ExportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportButtonActionPerformed(evt);
+            }
+        });
+
+        ImportButton.setText("Import Data");
+        ImportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ImportButtonActionPerformed(evt);
+            }
+        });
+
+        RollButton.setText("Roll Attack");
+        RollButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RollButtonActionPerformed(evt);
+            }
+        });
+
+        ReloadButton.setText("Reload");
+        ReloadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReloadButtonActionPerformed(evt);
+            }
+        });
+
+        SumButton.setText("Sum Damage");
+        SumButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SumButtonActionPerformed(evt);
+            }
+        });
+
+        ClearAllButton.setText("Clear All");
+        ClearAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearAllButtonActionPerformed(evt);
+            }
+        });
+
+        ClearRoundButton.setText("Clear Round");
+        ClearRoundButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearRoundButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(ImportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ExportButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ReloadButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(AddButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DeleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)
+                    .addComponent(ClearAllButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SumButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ClearRoundButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(RollButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ImportButton)
+                    .addComponent(AddButton)
+                    .addComponent(RollButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ExportButton)
+                    .addComponent(DeleteButton)
+                    .addComponent(SumButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ReloadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ClearAllButton)
+                    .addComponent(ClearRoundButton))
+                .addGap(11, 11, 11))
+        );
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(ProficiencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(ProficiencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,7 +273,10 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ProficiencySlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         MinionList.setModel(new javax.swing.table.DefaultTableModel(
@@ -211,6 +311,16 @@ public class GUI extends javax.swing.JFrame {
                 "Number", "Name", "HP", "AC", "Attacking"
             }
         ));
+        MinionList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MinionListMouseClicked(evt);
+            }
+        });
+        MinionList.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                MinionListKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(MinionList);
 
         AttackList.setModel(new javax.swing.table.DefaultTableModel(
@@ -357,147 +467,6 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        AddButton.setText("Add Row");
-
-        DeleteButton.setText("Delete Row");
-
-        SetButton.setText("Set Attack");
-        SetButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SetButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Minion #");
-
-        MinionNumberField.setText("1");
-
-        jLabel7.setText("Monster #");
-
-        MonsterNumberField.setText("1");
-
-        ExportButton.setText("Export Data");
-        ExportButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExportButtonActionPerformed(evt);
-            }
-        });
-
-        ImportButton.setText("Import Data");
-        ImportButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ImportButtonActionPerformed(evt);
-            }
-        });
-
-        RollButton.setText("Roll Attack");
-        RollButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RollButtonActionPerformed(evt);
-            }
-        });
-
-        ReloadButton.setText("Reload");
-        ReloadButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReloadButtonActionPerformed(evt);
-            }
-        });
-
-        SumButton.setText("Sum Damage");
-        SumButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SumButtonActionPerformed(evt);
-            }
-        });
-
-        ClearAllButton.setText("Clear All");
-        ClearAllButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClearAllButtonActionPerformed(evt);
-            }
-        });
-
-        ClearRoundButton.setText("Clear Round");
-        ClearRoundButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClearRoundButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(ReloadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ClearAllButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(ExportButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ImportButton))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(AddButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DeleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(RollButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SumButton)))
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel7))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ClearRoundButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(SetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(MonsterNumberField)
-                            .addComponent(MinionNumberField))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ImportButton)
-                            .addComponent(ExportButton))
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(AddButton)
-                            .addComponent(DeleteButton)))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(MinionNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(MonsterNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(4, 4, 4)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ReloadButton)
-                    .addComponent(ClearAllButton)
-                    .addComponent(SetButton))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RollButton)
-                    .addComponent(SumButton)
-                    .addComponent(ClearRoundButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         jLabel8.setText("Minion #");
 
         MinionNumberDamageField.setText("1");
@@ -524,6 +493,21 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("Minion #");
+
+        MinionNumberField.setText("1");
+
+        jLabel7.setText("Monster #");
+
+        MonsterNumberField.setText("1");
+
+        SetButton.setText("Set Attack");
+        SetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SetButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -543,13 +527,24 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(DamageDealtToMinionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(DamageButton)))
-                .addGap(52, 52, 52)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(KillMonsterText, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(KillMonsterButton)))
+                .addGap(25, 25, 25)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(KillMonsterText))
+                    .addComponent(MinionNumberField)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(KillMonsterButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(MonsterNumberField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(SetButton)
+                .addGap(293, 293, 293))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -558,15 +553,42 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MinionNumberDamageField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DamageDealtToMinionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DamageButton)
                     .addComponent(KillMonsterText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(KillMonsterButton))
+                    .addComponent(KillMonsterButton)
+                    .addComponent(MinionNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MonsterNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SetButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel11.setText("Attacks Minion Can Do");
+
+        MinionDescriptionField.setColumns(20);
+        MinionDescriptionField.setRows(5);
+        MinionDescriptionField.setText("No Minion Selected.\n");
+        jScrollPane4.setViewportView(MinionDescriptionField);
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -577,34 +599,33 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addGap(12, 12, 12)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 891, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(9, 9, 9)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 472, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -614,78 +635,6 @@ public class GUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ReloadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReloadButtonActionPerformed
-        // TODO add your handling code here:
-        updateLvAndProficiency();
-        clearNonMonster();
-        try{
-            importDataCSV(importedFile);
-        }catch(Exception e){JOptionPane.showMessageDialog(this, e);e.printStackTrace();}
-    }//GEN-LAST:event_ReloadButtonActionPerformed
-
-    private void RollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RollButtonActionPerformed
-        // TODO add your handling code here:
-        clearDamageDealtMonsters();
-        rollAttack();
-    }//GEN-LAST:event_RollButtonActionPerformed
-
-    private void ExportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportButtonActionPerformed
-        // TODO add your handling code here:
-        exportDataCSV();
-    }//GEN-LAST:event_ExportButtonActionPerformed
-
-    private void ImportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportButtonActionPerformed
-        // TODO add your handling code here:
-        clearAll();
-        updateLvAndProficiency();
-        System.out.println("Gotten into choosing the file from the computer");
-        //Have data read from excel spreadsheet and put it into program
-        try{
-            if(JOptionPane.showConfirmDialog(new JFrame(), 
-                    "Do you want to Use the Default Path?", 
-                    "Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
-            {
-                JFileChooser jfc = new JFileChooser();
-                if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
-                {
-                    importDataCSV(jfc.getSelectedFile());
-                    importedFile=jfc.getSelectedFile();
-                    System.out.println("Finished Importing Data and Saving -> " + importedFile);
-                }
-            }
-            else
-            {
-                importDataCSV(defaultFile);
-                importedFile=defaultFile;
-                System.out.println("Finished Importing Data and Saving -> " + importedFile);
-            }
-        } catch(Exception ex) {JOptionPane.showMessageDialog(this, ex);}
-    }//GEN-LAST:event_ImportButtonActionPerformed
-
-    private void SumButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SumButtonActionPerformed
-        // TODO add your handling code here:
-        System.out.println("");
-        System.out.println("Starting to Sum up all of the damage");
-        for(int i = 0; i < AttackList.getModel().getRowCount();i++) //For every attack that has been executed
-        {
-            System.out.println("    Currently viewing the " + i + " attack");
-            if(attackLanded((String)AttackList.getModel().getValueAt(i, attackListHitConfirmColumn)))   //If the user has manually gone in and confirmed that the attack hit
-            {
-                System.out.println("    Attack " + i + " did hit");
-                String stuff = (String)AttackList.getModel().getValueAt(i, attackListSpotColumn);   //Get the String of the minion that the attack origionated from
-                System.out.println("        {" + stuff + "}");
-                int attackCameFromThisMinion = Integer.parseInt(stuff); //convert it to int
-                System.out.println("        attackCameFromThisMinion was able to successfully get the value");
-                int monsterSpot = Integer.parseInt( (String)MinionList.getModel().getValueAt(attackCameFromThisMinion-1, minionListAttackingMonster) )-1;    //Gets Monster That specific Attack is Attacking
-                System.out.println("        monsterSpot was able to successfully get the value");
-                if(MonsterList.getModel().getValueAt(monsterSpot,attackListDamageColumn).equals(""))
-                    MonsterList.getModel().setValueAt(AttackList.getModel().getValueAt(i, attackListDamageColumn),monsterSpot,attackListDamageColumn);
-                else
-                    MonsterList.getModel().setValueAt("" + (Integer.parseInt((String)AttackList.getModel().getValueAt(i, attackListDamageColumn)) + Integer.parseInt((String)MonsterList.getModel().getValueAt(monsterSpot,attackListDamageColumn))),monsterSpot,attackListDamageColumn);
-            }
-        }
-    }//GEN-LAST:event_SumButtonActionPerformed
 
     private void SetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SetButtonActionPerformed
         // TODO add your handling code here:
@@ -703,19 +652,6 @@ public class GUI extends javax.swing.JFrame {
             
         }catch(Exception e){JOptionPane.showMessageDialog(this, e);}
     }//GEN-LAST:event_SetButtonActionPerformed
-
-    private void ClearAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearAllButtonActionPerformed
-        // TODO add your handling code here:
-        if(JOptionPane.showConfirmDialog(new JFrame(), 
-                    "Are you sure you want to clear everything?", 
-                    "Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-            clearAll();
-    }//GEN-LAST:event_ClearAllButtonActionPerformed
-
-    private void ClearRoundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearRoundButtonActionPerformed
-        // TODO add your handling code here:
-        clearAttackRound();
-    }//GEN-LAST:event_ClearRoundButtonActionPerformed
 
     private void DamageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DamageButtonActionPerformed
         // TODO add your handling code here:
@@ -778,6 +714,104 @@ public class GUI extends javax.swing.JFrame {
         }catch(Exception e){JOptionPane.showMessageDialog(this, e);e.printStackTrace();}
     }//GEN-LAST:event_KillMonsterButtonActionPerformed
 
+    private void MinionListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinionListMouseClicked
+        // TODO add your handling code here:
+        //Will Switch Description to the Minion at the row, or skip if same row as currently is.
+        changeShownRow();
+
+    }//GEN-LAST:event_MinionListMouseClicked
+
+    private void MinionListKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MinionListKeyReleased
+        // TODO add your handling code here:
+        //Should same thing as Mouse Clicked
+        changeShownRow();
+    }//GEN-LAST:event_MinionListKeyReleased
+
+    private void ClearRoundButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearRoundButtonActionPerformed
+        // TODO add your handling code here:
+        clearAttackRound();
+    }//GEN-LAST:event_ClearRoundButtonActionPerformed
+
+    private void ClearAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearAllButtonActionPerformed
+        // TODO add your handling code here:
+        if(JOptionPane.showConfirmDialog(new JFrame(),
+            "Are you sure you want to clear everything?",
+            "Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
+    clearAll();
+    }//GEN-LAST:event_ClearAllButtonActionPerformed
+
+    private void SumButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SumButtonActionPerformed
+        // TODO add your handling code here:
+        System.out.println("");
+        System.out.println("Starting to Sum up all of the damage");
+        for(int i = 0; i < AttackList.getModel().getRowCount();i++) //For every attack that has been executed
+        {
+            System.out.println("    Currently viewing the " + i + " attack");
+            if(attackLanded((String)AttackList.getModel().getValueAt(i, attackListHitConfirmColumn)))   //If the user has manually gone in and confirmed that the attack hit
+            {
+                System.out.println("    Attack " + i + " did hit");
+                String stuff = (String)AttackList.getModel().getValueAt(i, attackListSpotColumn);   //Get the String of the minion that the attack origionated from
+                System.out.println("        {" + stuff + "}");
+                int attackCameFromThisMinion = Integer.parseInt(stuff); //convert it to int
+                System.out.println("        attackCameFromThisMinion was able to successfully get the value");
+                int monsterSpot = Integer.parseInt( (String)MinionList.getModel().getValueAt(attackCameFromThisMinion-1, minionListAttackingMonster) )-1;    //Gets Monster That specific Attack is Attacking
+                System.out.println("        monsterSpot was able to successfully get the value");
+                if(MonsterList.getModel().getValueAt(monsterSpot,attackListDamageColumn).equals(""))
+                MonsterList.getModel().setValueAt(AttackList.getModel().getValueAt(i, attackListDamageColumn),monsterSpot,attackListDamageColumn);
+                else
+                MonsterList.getModel().setValueAt("" + (Integer.parseInt((String)AttackList.getModel().getValueAt(i, attackListDamageColumn)) + Integer.parseInt((String)MonsterList.getModel().getValueAt(monsterSpot,attackListDamageColumn))),monsterSpot,attackListDamageColumn);
+            }
+        }
+    }//GEN-LAST:event_SumButtonActionPerformed
+
+    private void ReloadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReloadButtonActionPerformed
+        // TODO add your handling code here:
+        updateLvAndProficiency();
+        clearNonMonster();
+        try{
+            importDataCSV(importedFile);
+        }catch(Exception e){JOptionPane.showMessageDialog(this, e);e.printStackTrace();}
+    }//GEN-LAST:event_ReloadButtonActionPerformed
+
+    private void RollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RollButtonActionPerformed
+        // TODO add your handling code here:
+        clearDamageDealtMonsters();
+        rollAttack();
+    }//GEN-LAST:event_RollButtonActionPerformed
+
+    private void ImportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportButtonActionPerformed
+        // TODO add your handling code here:
+        clearAll();
+        updateLvAndProficiency();
+        System.out.println("Gotten into choosing the file from the computer");
+        //Have data read from excel spreadsheet and put it into program
+        try{
+            if(JOptionPane.showConfirmDialog(new JFrame(),
+                "Do you want to Use the Default Path?",
+                "Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
+        {
+            JFileChooser jfc = new JFileChooser();
+            if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
+            {
+                importDataCSV(jfc.getSelectedFile());
+                importedFile=jfc.getSelectedFile();
+                System.out.println("Finished Importing Data and Saving -> " + importedFile);
+            }
+        }
+        else
+        {
+            importDataCSV(defaultFile);
+            importedFile=defaultFile;
+            System.out.println("Finished Importing Data and Saving -> " + importedFile);
+        }
+        } catch(Exception ex) {JOptionPane.showMessageDialog(this, ex);}
+    }//GEN-LAST:event_ImportButtonActionPerformed
+
+    private void ExportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportButtonActionPerformed
+        // TODO add your handling code here:
+        exportDataCSV();
+    }//GEN-LAST:event_ExportButtonActionPerformed
+
     
     /**
      * @param args the command line arguments
@@ -828,6 +862,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton ImportButton;
     private javax.swing.JButton KillMonsterButton;
     private javax.swing.JTextField KillMonsterText;
+    private javax.swing.JTextArea MinionDescriptionField;
     private javax.swing.JTable MinionList;
     private javax.swing.JTextField MinionNumberDamageField;
     private javax.swing.JTextField MinionNumberField;
@@ -841,6 +876,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JSlider WizlvSlider;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -856,9 +892,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -1189,4 +1227,49 @@ public class GUI extends javax.swing.JFrame {
             }catch(NumberFormatException a){}   //If the spot returns as a "", then it will throw a NumberFormatException, which will be caught by the try-catch outside of the for loop.
         }
     }
+    private String convertMinionAttackDescription(String str)
+    {
+        String converted="";
+        System.out.println("    The String about to be converted by MultiAttack is: "+str);
+        //This will break up the String based upon attacks in one combination and string them back together again in a way so as to be printed
+        String[] convertMultiAttack = str.split(":");
+        converted=convertMultiAttack[0];
+        for(int i = 1; i < convertMultiAttack.length; i++)
+        {
+            converted+=" AND "+convertMultiAttack[i];
+        }
+        
+        System.out.println("    The String about to be converted by MultiCombos is: "+converted);
+        //This will break up the String based upon how many different combos there are in the String
+        String[] convertMultiCombos=converted.split("\n");
+        converted=convertMultiCombos[0];
+        System.out.println("    The length of the now Array is: " + convertMultiCombos.length);
+        for(int i = 1; i < convertMultiCombos.length;i++)
+        {
+            System.out.println("        This Section of Multicombos is: " + convertMultiCombos[i]);
+            converted+="\nOR\n" + convertMultiCombos[i];
+        }
+        
+        return converted;
+    }
+    private void changeShownRow()
+    {
+        try{
+        if(MinionList.getSelectedRow()!=highlitedRow)
+        {
+            int spot = MinionList.getSelectedRow();
+            //try{
+            //    int stuff = Integer.parseInt((String)MinionList.getModel().getValueAt(MinionList.getSelectedRow(), minionListSpot));
+            //}catch(ClassCastException e){int stuff = (Integer)MinionList.getModel().getValueAt(MinionList.getSelectedRow(), minionListSpot);}
+            if(MinionList.getModel().getValueAt(spot, minionListSpot).equals("") || MinionList.getModel().getValueAt(spot, minionListSpot) == null)
+                return;
+            
+            String setTextAs = convertMinionAttackDescription( list.get(spot).getDescriptions() );
+            System.out.println(setTextAs);
+            MinionDescriptionField.setText(setTextAs);
+            highlitedRow=spot;
+        }
+        }catch(Exception e){e.printStackTrace();}
+    }
+
 }

@@ -40,6 +40,12 @@ public class Zombi extends Minions {
         {                                   //the different Attacks in Attack[] are the different combos that the creature could attack with on their turn, while diff attacks in Attack() will all be done consecutively
             new Attacks(
                 new Dice[]{
+                    new Dice(20,1,1)},
+                new Dice[]{
+                    new Dice(0,0,0)},
+                new String[]{name + " Grapple Check Roll Strength"}),
+            new Attacks(
+                new Dice[]{
                     new Dice(20,1,3)},
                 new Dice[]{
                     new Dice(6,1,1+proficiency)},
@@ -52,7 +58,7 @@ public class Zombi extends Minions {
     {
         super.hp-=amount;
         
-        //Demand User to tell if died from radiant damage or Critical Hit, give return; if either are true
+        //Demand User to tell if died from radiant damage or Critical Hit, and if either is true then the roll to survive is not given
         
         if(super.hp<=0 && JOptionPane.showConfirmDialog(new JFrame(),"Was the Damage a Critical Hit or Radiant Damage?","Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
         {

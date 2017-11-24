@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import dndminions.*;
+import externDataSet.*;
+import static externDataSet.ExternTable.ColTypes.STRING;
+import java.util.HashMap;
 import javax.swing.JFrame;
 //import java.awt.Component;
 
@@ -31,6 +34,7 @@ public class GUI extends javax.swing.JFrame {
     ArrayList<Minions> list = new ArrayList<>();
     ArrayList<String> attackNotes = new ArrayList<>();
     ArrayList<Integer> numRepeatingAttackNotes = new ArrayList<>();
+    String[] excelColumns={"Name"};
     File importedFile;
     final File defaultFile = new File("MinionListUpdatedMaybe2.csv");
     
@@ -246,10 +250,11 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(DeleteButton)
                     .addComponent(SumButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ReloadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ClearAllButton)
-                    .addComponent(ClearRoundButton))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ReloadButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ClearAllButton)
+                        .addComponent(ClearRoundButton)))
                 .addGap(11, 11, 11))
         );
 
@@ -776,7 +781,7 @@ public class GUI extends javax.swing.JFrame {
         updateLvAndProficiency();
         clearNonMonster();
         try{
-            importDataCSV(importedFile);
+            importDataGeneral(importedFile);
         }catch(Exception e){JOptionPane.showMessageDialog(this, e);e.printStackTrace();}
     }//GEN-LAST:event_ReloadButtonActionPerformed
 
@@ -793,21 +798,21 @@ public class GUI extends javax.swing.JFrame {
         System.out.println("Gotten into choosing the file from the computer");
         //Have data read from excel spreadsheet and put it into program
         try{
-            if(JOptionPane.showConfirmDialog(new JFrame(),
-                "Do you want to Use the Default Path?",
-                "Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
+        if(JOptionPane.showConfirmDialog(new JFrame(),
+            "Do you want to Use the Default Path?",
+            "Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
         {
             JFileChooser jfc = new JFileChooser();
             if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION)
             {
-                importDataCSV(jfc.getSelectedFile());
+                importDataGeneral(jfc.getSelectedFile());
                 importedFile=jfc.getSelectedFile();
                 System.out.println("Finished Importing Data and Saving -> " + importedFile);
             }
         }
         else
         {
-            importDataCSV(defaultFile);
+            importDataGeneral(defaultFile);
             importedFile=defaultFile;
             System.out.println("Finished Importing Data and Saving -> " + importedFile);
         }
@@ -938,6 +943,31 @@ public class GUI extends javax.swing.JFrame {
         }
     }
     /**
+     * 
+     * @param file 
+     */
+    private void importDataGeneral(File file)
+    {
+        ExternTable table = ExternTable.tableFactory(file);
+        System.out.println(("Is ExternTable considered null? The answer is: " + (table==null)));
+        System.out.println("The name of the file being saved is: " + file.getName());
+        try{
+            table.setDataTypes(new String[]{"Name"}, new ExternTable.ColTypes[]{STRING});
+            table.openDB();
+            HashMap<String,Object> infoTaken = table.nextRow();
+            while(infoTaken != null)
+            {
+                String[] info = new String[excelColumns.length];
+                for(int i = 0; i < excelColumns.length;i++)
+                {
+                    info[i] = (String)infoTaken.get(excelColumns[i]);
+                }
+                parseImportedData(info);
+                infoTaken = table.nextRow();
+            }
+        }catch(Exception e){e.printStackTrace();}
+    }
+    /**
      * Deals damage to the given minion
      * @param damageAmount
      * @param row
@@ -962,6 +992,7 @@ public class GUI extends javax.swing.JFrame {
      * Reads the different rows from a CSV spreadsheet and calls other methods to import the Minion
      * @param theFile 
      */
+    @Deprecated
     private void importDataCSV(File theFile)
     {
         System.out.println("    Into ImportData method");
@@ -998,6 +1029,7 @@ public class GUI extends javax.swing.JFrame {
     /**
      * Exports the Minion information into a CSV spreadsheet. NOT COMPLETE.
      */
+    @Deprecated
     private void exportDataCSV()
     {
         //Have data in program override the spreadsheet. DOES NOT save the health of creatures

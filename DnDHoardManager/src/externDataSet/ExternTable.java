@@ -26,7 +26,7 @@ public abstract class ExternTable {
 		INTEGER, DOUBLE, STRING
 	};	
 
-	protected File inFile      = null;
+	protected static File inFile      = null;
 	protected String[] columns = null;
 	protected ColTypes[] types = null;
 
@@ -42,8 +42,8 @@ public abstract class ExternTable {
 	 * 
 	 * @return
 	 */
-	public ExternTable tableFactory(File file) {
-		Pattern regexXLS = Pattern.compile("^.*.xls");
+	public static ExternTable tableFactory(File file) {
+		Pattern regexXLS = Pattern.compile("^.*.xls.*");
 		ExternTable retVal = null;
 		inFile = file;
 		

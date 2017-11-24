@@ -1236,7 +1236,7 @@ public class GUI extends javax.swing.JFrame {
         converted=convertMultiAttack[0];
         for(int i = 1; i < convertMultiAttack.length; i++)
         {
-            converted+=" AND "+convertMultiAttack[i];
+            converted+=" --AND-- "+convertMultiAttack[i];
         }
         
         System.out.println("    The String about to be converted by MultiCombos is: "+converted);
@@ -1247,7 +1247,7 @@ public class GUI extends javax.swing.JFrame {
         for(int i = 1; i < convertMultiCombos.length;i++)
         {
             System.out.println("        This Section of Multicombos is: " + convertMultiCombos[i]);
-            converted+="\nOR\n" + convertMultiCombos[i];
+            converted+="\n\nOR\n\n" + convertMultiCombos[i];
         }
         
         return converted;

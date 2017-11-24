@@ -30,6 +30,27 @@ public abstract class Minions {
     public void setHp(int hp){this.hp=hp;}
     public void setAc(int ac){this.ac=ac;}
 
+    /**
+     * Returns the Descriptions, with consecutive attacks broken by ":" and different combos broken by "\n"
+     * @return 
+     */
+    public String getDescriptions()
+    {
+        String collection="";
+        for(int row = 0; row < combinations.length; row++)
+        {
+            for (int column=0; column < combinations[row].getLength(); column++)
+            {
+                collection+=combinations[row].getDescription(column);
+                if(column+1!=combinations[row].getLength())
+                    collection+=":";
+            }
+            if(row+1 != combinations.length)
+                collection+="\n";
+        }
+        return collection;
+    }
+    
     abstract public void setUp(int wizlv, int proficiency, int acBoost);
     abstract public void decreaseHealth(int amount);
     public String[][] attack()

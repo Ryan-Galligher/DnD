@@ -36,7 +36,7 @@ public class GUI extends javax.swing.JFrame {
     ArrayList<Integer> numRepeatingAttackNotes = new ArrayList<>();
     String[] excelColumns={"Name"};
     File importedFile;
-    final File defaultFile = new File("MinionListUpdatedMaybe2.csv");
+    final File defaultFile = new File("MinionList.xlsx");
     
     int highlitedRow=0;
     int wizlv;

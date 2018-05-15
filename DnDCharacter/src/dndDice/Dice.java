@@ -8,14 +8,18 @@ package dndDice;
 import java.util.Random;
 
 /**
- * Holds all of the possible dice rolls that can be run, for either to hit or damage, depending on how it is implemented.
+ * Holds all of the possible dice rolls that can be run, for either to hit/damage/saves/etc, depending on how it is implemented.
  * @author Ryan
  */
 public class Dice {
-    private final int diceType;
+    private final int diceTypeValue;
+    private final DiceTypes diceType;
     private final int diceNum;
     private final int modifier;
-    public static enum DICETYPES{d20, d12, d10, d8, d6, d4, d2, d0};    //Types of "dice". A d0 indicates a constant number. So in practice, a 0d0 returns 0 and a 5d0 returns 5.
+    /**
+     * A list of the the allowed forms of dice that can be used by the {@link Dice} class. <b>d0 is for constant values.</b>
+     */
+    public static enum DiceTypes{d20, d12, d10, d8, d6, d4, d2, d0};    //Types of "dice". A d0 indicates a constant number. So in practice, a 0d0 returns 0 and a 5d0 returns 5.//Types of "dice". A d0 indicates a constant number. So in practice, a 0d0 returns 0 and a 5d0 returns 5.
     
     /**
      * 
@@ -23,11 +27,35 @@ public class Dice {
      * @param diceNum The number of times that the dice is to be rolled
      * @param modifier The constant number that is to be added to the roll
      */
-    public Dice(int diceType, int diceNum, int modifier)
+    public Dice(DiceTypes diceType, int diceNum, int modifier)
     {
         this.diceType=diceType;
+        diceTypeValue=convertDiceTypesToInt(diceType);
         this.diceNum=diceNum;
         this.modifier=modifier;
+    }
+    
+    public final short convertDiceTypesToInt(DiceTypes dice)
+    {
+        switch(diceType)
+        {
+            case d2: 
+                return 2;
+            case d4: 
+                return 4;
+            case d6:
+                return 6;
+            case d8:
+                return 8;
+            case d10: 
+                return 10;
+            case d12:
+                return 12;
+            case d20:
+                return 20;
+            default:
+                return 0;
+        }
     }
     
     /**
@@ -36,17 +64,17 @@ public class Dice {
      */
     public int roll()
     {
-        if(diceType==0)
+        if(diceTypeValue==0)
             return 0;
-        if(diceType==1)
+        if(diceTypeValue==1)
             return 1;
         if(diceNum==0)
-            return diceType;
+            return diceTypeValue;
         int total=0;
         Random rand = new Random();
         for (int i = 0; i < diceNum; i++)
         {
-            total += rand.nextInt(diceType + 1);    //if say a d8, would generate num 0-7, so add 1 to get 1-8
+            total += rand.nextInt(diceTypeValue + 1);    //if say a d8, would generate num 0-7, so add 1 to get 1-8
         }
         return total+modifier;
     }

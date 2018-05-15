@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dndcharacter;
+package dndCharacter;
 import dndMoney.Wallet;
 import dndMoney.Money;
 import dndClasses.Classes;
@@ -16,7 +16,6 @@ import dndBackground.Background;
 public interface PlayerCharacter extends Character
 {
     //All enumerated types for ease of use
-    public static enum Skill{ACROBATICS,ANIMALHANDLING,ARCANA,ATHLETICS,DECEPTION,HISTORY,INSIGHT,INTIMIDATION,INVESTIGATION,MEDICINE,NATURE,PERCEPTION,PERFORMANCE,PERSUASION,RELIGION,SLEIGHTOFHAND,STEALTH,SURVIVAL};
     
 
     //Dealing with dying, death saves, etc
@@ -33,13 +32,6 @@ public interface PlayerCharacter extends Character
     
     //Proficiency bonus
     public short getProficiencyBonus();
-    
-    //All methods associated with skills 
-    public short getSkill(Skill type);
-    public void modifySkill(Skill type, short amount);  //Specifically for when something like feat affects a skill
-    public void setSkillProficiency(Skill type, boolean hasProficiency);
-    public void setSkillExpertiese(Skill type, boolean hasExpertiese);
-    
     public void updateSkills();
     
     //Holds Classes

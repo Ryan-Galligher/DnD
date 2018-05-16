@@ -61,7 +61,10 @@ public interface Character {
      */
     public static enum Skill{ACROBATICS,ANIMALHANDLING,ARCANA,ATHLETICS,DECEPTION,HISTORY,INSIGHT,INTIMIDATION,INVESTIGATION,MEDICINE,NATURE,PERCEPTION,PERFORMANCE,PERSUASION,RELIGION,SLEIGHTOFHAND,STEALTH,SURVIVAL};
 
-    
+    //Minions Under current creature's control
+    public Character[] getMinionsUnderControl();
+    public void addMinion(Character character);
+    public boolean removeMinion(Character character);
     
     //All methods associated with skills 
     public short getSkill(Skill type);
@@ -142,4 +145,6 @@ public interface Character {
     public short getModifier(AbilityScore type);
     public short getSavingThrow(AbilityScore type);
     public void setAbilityScoreProficiency(AbilityScore type, boolean isProficient);    
+
+    public Dice getSavingThrowDice(AbilityScore type);
 }

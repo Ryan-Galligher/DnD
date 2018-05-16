@@ -102,4 +102,48 @@ public class Wallet
             return true;    //If everything works correctly, return that the money was added correctly
         }catch(Exception e){if(e instanceof IllegalArgumentException) throw e;return false;}
     }
+    /**
+     * Converts money amount from source to changeTo, then returns changeTo with amount.
+     * @param source amount to be converted to changeTo.
+     * @param changeTo Type of money that needs to have source amount converted to.
+     * @return The changeTo object with the source money added. If unsuccessful for any reason, return null.
+     */
+    public static Money convertMoney(Money source, Money changeTo)
+    {
+        if(changeTo.changeAmountBy(source))
+            return changeTo;
+        return null;
+    }
+    /**
+     * Exchanges amount of money from type source in wallet, converts it to money type changeTo, then adds changeTo money to wallet.
+     * @param source Amount of money to be taken from wallet, then converted to form changeTo.
+     * @param changeTo Amount should start out at zero, then have source amount of money converted and added to wallet.
+     * @return  If the exchange of money types was successful.
+     */
+    public boolean exchangeMoney(Money source, Money changeTo)
+    {
+        if(changeTo.getAmount()!=0)
+            return false;
+        if(payMoney(source) && changeTo.changeAmountBy(source) && addMoney(changeTo))   //If you can extract the money from this wallet, convert money from one type to another, and add that money to wallet
+            return true;
+        return false;
+    }
+    
+    public boolean exchangeMoney(Money amountNeededToAdd)
+    {
+        int i;
+        for(i = 0; i < cashInWallet.size(); i++)
+        {
+            if(cashInWallet.get(i).getValue() <= amountNeededToAdd.getValue())
+            {
+                break;  //If they get to a point where the value of current item is smaller or equal to ammount to convert to, break (used so edge case of convert to is small amount that isn't in wallet still works)
+            }
+        }
+        if(i==0)
+            return false;
+        Money mon = cashInWallet.get(i-1).createEmptyInstance();
+        mon.changeAmountBy(amountNeededToAdd);
+        return exchangeMoney(mon, amountNeededToAdd.createEmptyInstance());
+ 
+    }
 }

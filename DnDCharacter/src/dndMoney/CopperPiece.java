@@ -10,19 +10,20 @@ package dndMoney;
  * @author ryan
  */
 public class CopperPiece implements Money{
-    private short amount;
+    private int amount;
     private static final short VALUE = 1;
     private static final String NAME = "CopperPiece";
     
     public CopperPiece(){amount=0;}
-    public CopperPiece(short amount){this.amount=amount;}
+    public CopperPiece(int amount){this.amount=amount;}
     public String getName(){return NAME;}
+    public Money createEmptyInstance(){return new CopperPiece();}
 
     @Override
-    public short getAmount() {return amount;}
+    public int getAmount() {return amount;}
 
     @Override
-    public boolean setAmount(short amount) 
+    public boolean setAmount(int amount) 
     {
         if(amount>0) 
             this.amount = amount; 
@@ -30,7 +31,7 @@ public class CopperPiece implements Money{
     }
 
     @Override
-    public boolean changeAmountBy(short amount)
+    public boolean changeAmountBy(int amount)
     {
         if(this.amount+amount >0)
         {
@@ -42,7 +43,11 @@ public class CopperPiece implements Money{
 
     @Override
     public boolean changeAmountBy(Money other) {
-        short number = (short)((amount*VALUE + other.getAmount()*other.getValue())/VALUE);
+         int number;
+        if(!amountLargerThan(other))
+            number = ((amount*VALUE + other.getAmount()*other.getValue())/VALUE);
+        else
+            number = (int)Math.ceil(((amount*VALUE + other.getAmount()*other.getValue())/VALUE));
         if(number>0)
         {
             amount=number;
@@ -52,7 +57,7 @@ public class CopperPiece implements Money{
     }
 
     @Override
-    public short getValue() {return VALUE;}
+    public int getValue() {return VALUE;}
 
     @Override
     public boolean valueLargerThan(Money other) {

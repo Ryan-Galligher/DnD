@@ -8,6 +8,7 @@ import dndMoney.Wallet;
 import dndMoney.Money;
 import dndClasses.Classes;
 import dndBackground.Background;
+import dndRace.Race;
 
 /**
  *
@@ -35,12 +36,15 @@ public interface PlayerCharacter extends Character
     public void updateSkills();
     
     //Holds Classes
-    public Classes getPlayerClass();
+    public Classes[] getPlayerClasses();
     public void setPlayerClass(Classes classType);
     
     //Holds Background
     public Background getPlayerBackground();
     public void setPlayerBackground();
     
+    //Holds Race
+    public Race getPlayerRace();
+    public void setPlayerRace(Race playerRace);
     
 }

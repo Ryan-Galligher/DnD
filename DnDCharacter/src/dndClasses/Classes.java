@@ -21,14 +21,15 @@ public abstract class Classes
     /**
      * Reference to a {@link Character} object that will have taken at least one level in a class. The current class implementation will be directly attached to that instance of a character. Usually will be attacked to a {@link PlayerCharacter}.
      */
-    private final Character character;
+    private final Character CHARACTER;
+    private final String NAME;
     
     private DiceTypes hitDiceType;
     private Dice hitDice;
     /**
-     * The level that the {@link #character} has in the current class.
+     * The level that the {@link #CHARACTER} has in the current class.
      */
-    private short level;
+    protected short level;
     
     private final AbilityScore spellCasting;
     private short spellSaveDC;
@@ -38,22 +39,24 @@ public abstract class Classes
     
     
     
-    public Classes(Character characterWithClass, AbilityScore spellCastingType) throws IllegalArgumentException
+    public Classes(Character characterWithClass, AbilityScore spellCastingType, String name) throws IllegalArgumentException
     {
         if(characterWithClass==null)
             throw new IllegalArgumentException("Must have reference to character using class");
-        character = characterWithClass;
+        CHARACTER = characterWithClass;
         spellCasting = spellCastingType;
+        this.NAME = name;
         
-        
-        spellSaveDC = getSpellDC(character);
-        spellAttackModifier = getSpellAttack(character);
+        spellSaveDC = getSpellDC(CHARACTER);
+        spellAttackModifier = getSpellAttack(CHARACTER);
     }
+    
+    public String getName(){return NAME;}
     
     protected ArrayList<Skill> skillProf;
     protected ArrayList<WeaponTypes> weaponProf;
     
-    protected Character getCharacter(){return character;}
+    protected Character getCharacter(){return CHARACTER;}
     
     protected void setHitDice(DiceTypes type){hitDiceType=type;hitDice=new Dice(type, level, 0);}
     public DiceTypes getHitDiceType(){return hitDiceType;}
@@ -70,8 +73,8 @@ public abstract class Classes
         level++;
         hitDice = new Dice(hitDiceType, level, 0);
         
-        spellSaveDC = getSpellDC(character);
-        spellAttackModifier = getSpellAttack(character);
+        spellSaveDC = getSpellDC(CHARACTER);
+        spellAttackModifier = getSpellAttack(CHARACTER);
         
         return levelUpHealth();
         
@@ -83,8 +86,8 @@ public abstract class Classes
     private int levelUpHealth()
     {
         if(level==1)
-            return 6 + character.getModifier(AbilityScore.CONSTITUTION);
-        return hitDice.roll() + character.getModifier(AbilityScore.CONSTITUTION);
+            return 6 + CHARACTER.getModifier(AbilityScore.CONSTITUTION);
+        return hitDice.roll() + CHARACTER.getModifier(AbilityScore.CONSTITUTION);
     }
     
     /**

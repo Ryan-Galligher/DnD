@@ -76,24 +76,35 @@ public abstract class Minions {
         //NEED TO ASK FOR ADVANTAGE
         //Later, should change to have this already know who you are attacking, then read if creatures get advantage to hit it, then act accordingly
         boolean advantage = false;
+        boolean disadvantage = false;
         if (JOptionPane.showConfirmDialog(new JFrame(), 
+            "Does "+name+" attack under normal conditions (No advantage/disadvantage) ", 
+            "Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.NO_OPTION)
+        {
+            if (JOptionPane.showConfirmDialog(new JFrame(), 
             "Does "+name+" get advantage", 
             "Exitting Window", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
-        {
-            advantage = true;
+                advantage = true;
+            else
+                disadvantage=true;
         }
+        
         
         //combinations[attackChoice] gives back an Attack from the Attacks[], and so the getLength() of an Attack gives the # of individual hits that that creature can do
         String[][] attacksMade = new String[combinations[attackChoice].getLength() ][4];       //4 Places: attack to hit, damage, and description, and isCritical
         int onHitRoll;
         int damageRoll;
+        int natBonus=0;
         boolean isCritical = false;
         for (int i = 0; i < combinations[attackChoice].getLength(); i++)    //for each attack in the chosen attack path
         {
-            onHitRoll=combinations[attackChoice].getOneHitNumber(i, advantage);
+            onHitRoll=combinations[attackChoice].getOneHitNumber(i, advantage, disadvantage);
             if(onHitRoll==20+combinations[attackChoice].getHitModifier(i)){
-                damageRoll=combinations[attackChoice].getOneDamageNumber(i)+combinations[attackChoice].getOneDamageNumberNoModifier(i);
+                damageRoll=combinations[attackChoice].getOneDamageNumber(i);
+                natBonus=combinations[attackChoice].getOneDamageNumberNoModifier(i);
                 isCritical=true;
+                System.out.println("\t\t\tThe attack was critical, with a normal damage of " + damageRoll + " plus a bonus roll of " + natBonus);
+                damageRoll+=natBonus;
             }
             else
                 damageRoll=combinations[attackChoice].getOneDamageNumber(i);

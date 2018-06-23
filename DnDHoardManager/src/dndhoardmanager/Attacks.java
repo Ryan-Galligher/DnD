@@ -35,26 +35,21 @@ public class Attacks     //This holds not only multiple attacks, but also a sing
         return total;
     }
     
-    public int getOneHitNumber(int spot, boolean advantage)
+    public int getOneHitNumber(int spot, boolean advantage, boolean disadvantage)
     {
         int size=0;
         int roll=0;
-        if(advantage)
+        if(advantage ^ disadvantage)
         {
             size=toHitCombo[spot].roll();
         }
         roll=toHitCombo[spot].roll();
         
+        if(disadvantage&&!advantage)
+            return ((size<roll) ? size : roll);
         return ((size>roll) ? size : roll);
     }
-    public int getOneDamageNumber(int spot)
-    {
-        int size=0;
-        int roll=0;
-        roll=toHurtCombo[spot].roll();
-        
-        return ((size>roll) ? size : roll);
-    }
+    public int getOneDamageNumber(int spot){return toHurtCombo[spot].roll();}
     public int getOneDamageNumberNoModifier(int spot){return getOneDamageNumber(spot)-toHurtCombo[spot].getModifier(); }
     
     

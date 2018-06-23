@@ -16,8 +16,8 @@ public class Boar extends Minions{
        
     public Boar()
     {
-        super.hp=2;
-        super.ac=2;
+        super.hp=11;
+        super.ac=11;
         super.name="Boar";
         super.combinations=new Attacks[]{};
     }

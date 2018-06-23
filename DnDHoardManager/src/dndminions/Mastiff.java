@@ -12,8 +12,8 @@ import dndhoardmanager.*;
 public class Mastiff extends Minions{
     public Mastiff()
     {
-        super.hp=2;
-        super.ac=2;
+        super.hp=5;
+        super.ac=12;
         super.name="Mastiff";
         super.combinations=new Attacks[]{};
     }

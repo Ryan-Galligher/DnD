@@ -18,7 +18,7 @@ public class ObjectTiny extends Minions {
     {
         super.hp=2;
         super.ac=2;
-        super.name="Skele";
+        super.name="ObjectTiny";
         super.combinations=new Attacks[]{};
     }
     

@@ -45,7 +45,7 @@ public class Dice {
         Random rand = new Random();
         for (int i = 0; i < diceNum; i++)
         {
-            total += rand.nextInt(diceType + 1);    //if say a d8, would generate num 0-7, so add 1 to get 1-8
+            total += rand.nextInt(diceType) + 1;    //if say a d8, would generate num 0-7, so add 1 to get 1-8
         }
         return total+modifier;
     }

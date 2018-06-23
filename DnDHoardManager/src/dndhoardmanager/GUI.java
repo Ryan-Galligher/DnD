@@ -1014,31 +1014,33 @@ public class GUI extends javax.swing.JFrame {
         System.out.println("Starting to Determine if attacks hit automatically");
         for(int i = 0; i < AttackList.getModel().getRowCount();i++) //For every attack that has been executed
         {
-            try{    //Used to make sure that there isn't any problem with the spot in the table being either String or Int
-                attackCameFromThisMinion = Integer.parseInt((String)AttackList.getModel().getValueAt(i, attackListSpotColumn));
-            }catch(ClassCastException e){
-                attackCameFromThisMinion = (Integer)AttackList.getModel().getValueAt(i, attackListSpotColumn);
-            }
-            monsterSpot = Integer.parseInt( (String)MinionList.getModel().getValueAt(attackCameFromThisMinion-1, minionListAttackingMonster) )-1;    //Gets Monster That specific Attack is Attacking
-            if(!MonsterList.getModel().getValueAt(monsterSpot, monsterListAC).equals("") && Integer.parseInt((String)AttackList.getModel().getValueAt(i, attackListDamageColumn)) != 0)     //As long as there either exists a predicted AC for the monster and the value isn't some form of check, continue.
-            {
-                foundMonsterAC = Integer.parseInt((String)MonsterList.getModel().getValueAt(monsterSpot, monsterListAC));   //Grabs the AC at the given monster spot, since it must exist
-                toHitValue=(String)AttackList.getModel().getValueAt(i, attackListToHitColumn);
-                if(toHitValue.equals("nat 20"))
-                {
-                    AttackList.getModel().setValueAt("y", i, attackListHitConfirmColumn);
-                    continue;
+            try{
+                try{    //Used to make sure that there isn't any problem with the spot in the table being either String or Int
+                    attackCameFromThisMinion = Integer.parseInt((String)AttackList.getModel().getValueAt(i, attackListSpotColumn));
+                }catch(ClassCastException e){
+                    attackCameFromThisMinion = (Integer)AttackList.getModel().getValueAt(i, attackListSpotColumn);
                 }
-                if(toHitValue.equals("nat 1"))
+                monsterSpot = Integer.parseInt( (String)MinionList.getModel().getValueAt(attackCameFromThisMinion-1, minionListAttackingMonster) )-1;    //Gets Monster That specific Attack is Attacking
+                if(!MonsterList.getModel().getValueAt(monsterSpot, monsterListAC).equals("") && Integer.parseInt((String)AttackList.getModel().getValueAt(i, attackListDamageColumn)) != 0)     //As long as there either exists a predicted AC for the monster and the value isn't some form of check, continue.
                 {
-                    AttackList.getModel().setValueAt("n", i, attackListHitConfirmColumn);
-                    continue;
+                    foundMonsterAC = Integer.parseInt((String)MonsterList.getModel().getValueAt(monsterSpot, monsterListAC));   //Grabs the AC at the given monster spot, since it must exist
+                    toHitValue=(String)AttackList.getModel().getValueAt(i, attackListToHitColumn);
+                    if(toHitValue.equals("nat 20"))
+                    {
+                        AttackList.getModel().setValueAt("y", i, attackListHitConfirmColumn);
+                        continue;
+                    }
+                    if(toHitValue.equals("nat 1"))
+                    {
+                        AttackList.getModel().setValueAt("n", i, attackListHitConfirmColumn);
+                        continue;
+                    }
+                    if(foundMonsterAC<=Integer.parseInt(toHitValue))    //so the 2 cases of nat 20/1 out of way, if hit greater/equal AC, confirm yes
+                        AttackList.getModel().setValueAt("y", i, attackListHitConfirmColumn);
+                    else
+                        AttackList.getModel().setValueAt("n", i, attackListHitConfirmColumn);
                 }
-                if(foundMonsterAC<=Integer.parseInt(toHitValue))    //so the 2 cases of nat 20/1 out of way, if hit greater/equal AC, confirm yes
-                    AttackList.getModel().setValueAt("y", i, attackListHitConfirmColumn);
-                else
-                    AttackList.getModel().setValueAt("n", i, attackListHitConfirmColumn);
-            }
+            }catch(Exception e){e.printStackTrace();}   //So if error in part of loop, will continue for the rest of the items
         }
     }
     

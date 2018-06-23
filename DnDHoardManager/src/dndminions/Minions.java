@@ -103,11 +103,18 @@ public abstract class Minions {
                 damageRoll=combinations[attackChoice].getOneDamageNumber(i);
                 natBonus=combinations[attackChoice].getOneDamageNumberNoModifier(i);
                 isCritical=true;
-                System.out.println("\t\t\tThe attack was critical, with a normal damage of " + damageRoll + " plus a bonus roll of " + natBonus);
+                System.out.println("\t\t\tThe attack was critical Hit, with a normal damage of " + damageRoll + " plus a bonus roll of " + natBonus);
                 damageRoll+=natBonus;
             }
             else
+            {
+                if(onHitRoll==1+combinations[attackChoice].getHitModifier(i))
+                {
+                    isCritical=true;
+                    System.out.println("\t\t\tThe attack was critical Fail.");
+                }
                 damageRoll=combinations[attackChoice].getOneDamageNumber(i);
+            }
             attacksMade[i]=new String[]{"" +onHitRoll, "" + damageRoll, combinations[attackChoice].getDescription(i), "" + isCritical };
         }
         return attacksMade;

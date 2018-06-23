@@ -47,6 +47,7 @@ public class GUI extends javax.swing.JFrame {
     int spotColumn=0;
     
     int attackListSpotColumn=spotColumn;
+    int attackListToHitColumn=2;
     int attackListDamageColumn=3;
     int attackListHitConfirmColumn=4;
     
@@ -56,7 +57,8 @@ public class GUI extends javax.swing.JFrame {
     int minionListAC=3;
     int minionListAttackingMonster=4;
    
-    int monsterListDamageDelt=0;    //IS NOT COMPLETELY FINISHED YET NEED TO FIX PROPERLY#######################
+    int monsterListDamageDelt=attackListDamageColumn;
+    int monsterListAC=2;
     
     
     /**
@@ -566,9 +568,7 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(MonsterNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(SetButton))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -979,7 +979,12 @@ public class GUI extends javax.swing.JFrame {
             {
                 String attackRoll;
                 if(attacksFromOneCreature1[Minions.ISCRITICALPLACE].equals("true"))
-                    attackRoll="nat 20";        //If the attack resulted in a natural 20, then the attackroll inputed value is "nat 20" instead of the normal roll with its modifier to distinguish the two
+                {
+                    if(Integer.parseInt(attacksFromOneCreature1[Minions.ATTACKROLLPLACE]) >= 20)
+                        attackRoll="nat 20";        //If the attack resulted in a natural 20, then the attackroll inputed value is "nat 20" instead of the normal roll with its modifier to distinguish the two
+                    else
+                        attackRoll="nat 1";         //If the attack resulted in a natural 1, then attackroll inputs it as "nat 1" instead to distinguish.
+                }
                 else
                     attackRoll=attacksFromOneCreature1[Minions.ATTACKROLLPLACE];
                 String[] info = {"" + (i+1),list.get(i).getName(), attackRoll, attacksFromOneCreature1[Minions.DAMAGEPLACE]};  //Values that get updated into table are: Minion spot, Minion name, attack roll, damage
@@ -993,7 +998,50 @@ public class GUI extends javax.swing.JFrame {
                 updateAttackTableRow(info, Boolean.parseBoolean(attacksFromOneCreature1[Minions.ISCRITICALPLACE]));
             }
         }
+        autoDetermineHit();
     }
+    
+    /**
+     * Goes through all attacks and determines which Monster it is aimed at, and if it has a given AC autofills if the attack hit or not.
+     */
+    private void autoDetermineHit()
+    {
+        int foundMonsterAC;
+        int monsterSpot;
+        int attackCameFromThisMinion;
+        String toHitValue;
+        System.out.println("");
+        System.out.println("Starting to Determine if attacks hit automatically");
+        for(int i = 0; i < AttackList.getModel().getRowCount();i++) //For every attack that has been executed
+        {
+            try{    //Used to make sure that there isn't any problem with the spot in the table being either String or Int
+                attackCameFromThisMinion = Integer.parseInt((String)AttackList.getModel().getValueAt(i, attackListSpotColumn));
+            }catch(ClassCastException e){
+                attackCameFromThisMinion = (Integer)AttackList.getModel().getValueAt(i, attackListSpotColumn);
+            }
+            monsterSpot = Integer.parseInt( (String)MinionList.getModel().getValueAt(attackCameFromThisMinion-1, minionListAttackingMonster) )-1;    //Gets Monster That specific Attack is Attacking
+            if(!MonsterList.getModel().getValueAt(monsterSpot, monsterListAC).equals("") && Integer.parseInt((String)AttackList.getModel().getValueAt(i, attackListDamageColumn)) != 0)     //As long as there either exists a predicted AC for the monster and the value isn't some form of check, continue.
+            {
+                foundMonsterAC = Integer.parseInt((String)MonsterList.getModel().getValueAt(monsterSpot, monsterListAC));   //Grabs the AC at the given monster spot, since it must exist
+                toHitValue=(String)AttackList.getModel().getValueAt(i, attackListToHitColumn);
+                if(toHitValue.equals("nat 20"))
+                {
+                    AttackList.getModel().setValueAt("y", i, attackListHitConfirmColumn);
+                    continue;
+                }
+                if(toHitValue.equals("nat 1"))
+                {
+                    AttackList.getModel().setValueAt("n", i, attackListHitConfirmColumn);
+                    continue;
+                }
+                if(foundMonsterAC<=Integer.parseInt(toHitValue))    //so the 2 cases of nat 20/1 out of way, if hit greater/equal AC, confirm yes
+                    AttackList.getModel().setValueAt("y", i, attackListHitConfirmColumn);
+                else
+                    AttackList.getModel().setValueAt("n", i, attackListHitConfirmColumn);
+            }
+        }
+    }
+    
     /**
      * 
      * @param file 
@@ -1163,7 +1211,8 @@ public class GUI extends javax.swing.JFrame {
         else    //if there is not an empty row, makes a new row
         {
             DefaultTableModel model = (DefaultTableModel) AttackList.getModel();
-            model.addRow(new Object[]{i,stuff[0],stuff[1],stuff[2],""});
+            //model.addRow(new Object[]{i,stuff[0],stuff[1],stuff[2],""});
+            model.addRow(new Object[]{stuff[0],stuff[1],stuff[2],stuff[3],""});
         }
     }
     /**
